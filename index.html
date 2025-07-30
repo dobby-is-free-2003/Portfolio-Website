@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Archana V.M - Interactive Holo-Grid Portfolio</title>
+    
+    <!-- Google Fonts: Poppins (Bold) for headings, IBM Plex Mono for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6.4.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* === INTERACTIVE HOLO-GRID THEME === */
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #01020d; }
+        ::-webkit-scrollbar-thumb { background: #FF00A8; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d9008f; }
+
+        /* Core Body */
+        body {
+            background-color: #01020d; /* Midnight Purple */
+            color: #D3D3E4; /* Light Lavender Grey */
+            font-family: 'IBM Plex Mono', monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+            cursor: none;
+        }
+        
+        /* Interactive Background & Cursor */
+        #interactive-grid {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+        }
+        #spotlight {
+            position: fixed;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 168, 0.08), transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Heading Font */
+        .heading-font {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        /* Accent Colors */
+        .text-accent-pink { color: #FF00A8; }
+        .text-accent-cyan { color: #00D2FF; }
+        .text-primary { color: #F0F3FF; }
+        
+        /* Holo Card UI */
+        .holo-card {
+            background: rgba(12, 10, 36, 0.6);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 2rem;
+        }
+        /* Corner Brackets */
+        .holo-card::before, .holo-card::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border-color: #FF00A8;
+            transition: all 0.3s ease;
+        }
+        .holo-card::before { top: 10px; left: 10px; border-top: 2px solid; border-left: 2px solid; }
+        .holo-card::after { bottom: 10px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
+        
+        .holo-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 0, 168, 0.6);
+            box-shadow: 0 20px 40px -15px rgba(255, 0, 168, 0.3);
+        }
+
+        /* Focus Mode: Dims other content */
+        body.card-focused main > .main-content-wrapper > section .holo-card:not(:hover) {
+            filter: blur(4px) brightness(0.6);
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body class="bg-[#01020d]">
+    
+    <canvas id="interactive-grid"></canvas>
+    <div id="spotlight"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 p-4">
+        <nav class="container mx-auto flex justify-between items-center bg-[rgba(12,10,36,0.6)] backdrop-blur-md p-3 rounded-lg border border-[rgba(0,210,255,0.15)]">
+            <a href="#" class="text-2xl font-bold heading-font text-accent-pink">AVM</a>
+            <ul class="flex space-x-8 text-md text-primary">
+                <li><a href="#about" class="hover:text-accent-pink transition-colors duration-300">ABOUT</a></li>
+                <li><a href="#experience" class="hover:text-accent-pink transition-colors duration-300">EXPERIENCE</a></li>
+                <li><a href="#contact" class="hover:text-accent-pink transition-colors duration-300">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 pt-24 relative z-10">
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center text-center -mt-24">
+            <div class="w-full">
+                <p class="text-accent-cyan text-lg mb-4">// ARCHANA V.M.</p>
+                <h1 class="text-4xl md:text-7xl text-primary mb-4 heading-font">AI & CYBERSECURITY ENGINEER</h1>
+                <p class="max-w-3xl mx-auto text-gray-400 text-lg">A final-year B.Tech student at PES University, architecting secure, intelligent systems and contributing to high-impact research.</p>
+            </div>
+        </section>
+        
+        <div class="main-content-wrapper space-y-24 md:space-y-32">
+            <!-- About Section -->
+            <section id="about" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-4">PROFILE_</h2>
+                <p class="text-gray-400 mb-6">Fourth Year (VII Semester) student of Bachelor of Technology in Electronics & Communication Engineering. I thrive at the intersection of AI and digital security, focusing on creating practical, high-performance applications and contributing to research with clear novelties and experimental justifications.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl heading-font text-accent-cyan mb-3">LANGUAGES_</h3>
+                        <p class="text-gray-300">Kannada, English, Hindi, Korean</p>
+                    </div>
+                     <div>
+                        <h3 class="text-xl heading-font text-accent-cyan mb-3">HOBBIES_</h3>
+                        <p class="text-gray-300">Cooking, Baking, Singing, Drawing</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education Section -->
+            <section id="education" class="holo-card">
+                 <h2 class="text-3xl heading-font text-accent-pink mb-6">EDUCATION_</h2>
+                 <div class="grid sm:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <h3 class="font-bold text-primary text-lg">PES UNIVERSITY</h3>
+                        <p class="text-gray-400">BTech in ECE (2022 - Present)</p>
+                        <p class="text-accent-cyan">CGPA: 7.23</p>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-primary text-lg">SRI KUMARNS PU COLLEGE</h3>
+                        <p class="text-gray-400">2nd PUC (2020 - 2022)</p>
+                        <p class="text-accent-cyan">92%</p>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-primary text-lg">INSIGHT ACADEMY</h3>
+                        <p class="text-gray-400">10th ICSE (2020)</p>
+                        <p class="text-accent-cyan">95%</p>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-8">EXPERIENCE_LOG_</h2>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-bold text-primary text-xl">Projects Under Publication</h3>
+                        <p class="text-accent-cyan text-sm">[RESEARCH FOCUS]</p>
+                        <ul class="list-disc list-inside text-gray-400 mt-2 pl-2">
+                            <li>Anti-Drone Detection System: Real-time aerial threat detection.</li>
+                            <li>Deepfake Detection System: Hybrid deep learning pipeline integrating spatial, temporal, and physiological cues.</li>
+                            <li>DeepFool Detection System: Lightweight defense against adversarial perturbations.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-primary text-xl">Active R&D</h3>
+                        <p class="text-accent-cyan text-sm">[CURRENT WORK]</p>
+                        <p class="text-gray-400 mt-2">Working on advanced Vision Transformer models including Spatially Aware, Spiral Attention, and Trajectory-based variants.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-primary text-xl">Prototype of Guided Missile System</h3>
+                        <p class="text-accent-cyan text-sm">[HACKATHON WINNER - 2ND PRIZE]</p>
+                        <p class="text-gray-400 mt-2">Developed a satellite image generator with Super Resolution & Object Detection AI for target marking.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-primary text-xl">Cybersecurity VAPT & Mini Project</h3>
+                        <p class="text-accent-cyan text-sm">[FOUNDATIONAL PROJECTS]</p>
+                         <ul class="list-disc list-inside text-gray-400 mt-2 pl-2">
+                            <li>Conducted Vulnerability Assessment and Penetration Testing of Ubuntu/Windows using NMAP.</li>
+                             <li>Built a Library Management System UI with HTML, Python (Flask), and MySQL.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Skills Section -->
+            <section id="skills" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-6">TECHNICAL_SKILLSET_</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <h3 class="font-bold text-accent-cyan mb-2">Core ML & DS</h3>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li>> Python (ML, CV, DL)</li>
+                            <li>> Classification (SVM, RF, XGBoost)</li>
+                            <li>> Hybrid Models (CNNs, PPG)</li>
+                            <li>> Architectures (ViT, MobileNetV2)</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-accent-cyan mb-2">Programming & Tools</h3>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li>> Python, C/C++, Java</li>
+                            <li>> MATLAB, Vivado, Tinkercad</li>
+                            <li>> Git & GitHub</li>
+                             <li>> AI Tools (ChatGPT, Gemini)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-accent-cyan mb-2">Data Science Workflow</h3>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li>> Dataset Handling (FaceForensics++)</li>
+                            <li>> Image/Signal Preprocessing</li>
+                            <li>> Feature Engineering</li>
+                            <li>> Hyperparameter Tuning</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-accent-cyan mb-2">Cybersecurity & AI</h3>
+                        <ul class="text-gray-300 text-sm space-y-1">
+                            <li>> Adversarial Attack Detection</li>
+                            <li>> AI for Surveillance & Anomaly Detection</li>
+                            <li>> Forensic Tools (Wireshark, Autopsy)</li>
+                            <li>> Pentesting Tools (Nmap, Metasploit)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Certifications Section -->
+            <section id="certifications" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-6">CERTIFICATIONS_</h2>
+                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                    <li>IBM Cybersecurity Analyst Professional Certificate</li>
+                    <li>ISAC-certified Cyber Crime Intervention Officer (CCIO)</li>
+                    <li>Ethical Hacking from Techgyan in association with Avenues IIT Bombay</li>
+                    <li>IOT Robotics & Embedded Systems from Coincent (Microsoft & IIT Guwahati)</li>
+                    <li>PESU I/O Ethical Hacking with Shell Scripting</li>
+                </ul>
+            </section>
+
+             <!-- Extracurricular Section -->
+            <section id="extracurricular" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-6">EXTRACURRICULAR_</h2>
+                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                    <li>Sponsorship Domain Head of AURA, AI-ML Club</li>
+                    <li>Cyber Security Mentor in IEEE CS Club</li>
+                    <li>Volunteer at PESU Golden Jubilee Celebrations</li>
+                    <li>Member of Linguista Club</li>
+                </ul>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="contact" class="holo-card">
+                <h2 class="text-3xl heading-font text-accent-pink mb-6 text-center">ESTABLISH_CONNECTION_</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-center">I'm actively seeking new opportunities and collaborations. My inbox is always open.</p>
+                <div class="max-w-3xl mx-auto grid sm:grid-cols-2 gap-6">
+                    <a href="mailto:archanamakkimane@gmail.com" class="contact-item group flex items-center gap-4 p-4 rounded-md bg-black/20 hover:bg-black/40 border border-transparent hover:border-accent-pink transition-all">
+                        <i class="fas fa-envelope text-2xl text-accent-cyan group-hover:text-accent-pink transition-colors"></i>
+                        <div><h3 class="font-bold text-primary">Email</h3></div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/archana-v-m-132986251/" target="_blank" class="contact-item group flex items-center gap-4 p-4 rounded-md bg-black/20 hover:bg-black/40 border border-transparent hover:border-accent-pink transition-all">
+                        <i class="fab fa-linkedin text-2xl text-accent-cyan group-hover:text-accent-pink transition-colors"></i>
+                        <div><h3 class="font-bold text-primary">LinkedIn</h3></div>
+                    </a>
+                    <a href="https://github.com/Archi2003" target="_blank" class="contact-item group flex items-center gap-4 p-4 rounded-md bg-black/20 hover:bg-black/40 border border-transparent hover:border-accent-pink transition-all">
+                        <i class="fab fa-github text-2xl text-accent-cyan group-hover:text-accent-pink transition-colors"></i>
+                        <div><h3 class="font-bold text-primary">GitHub</h3></div>
+                    </a>
+                    <div class="contact-item group flex items-center gap-4 p-4 rounded-md bg-black/20">
+                        <i class="fas fa-mobile-alt text-2xl text-accent-cyan"></i>
+                        <div><h3 class="font-bold text-primary">8431599055</h3></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center py-16 mt-16 text-gray-500">
+        <p>DESIGNED & BUILT BY ARCHANA V.M.</p>
+        <p class="text-xs mt-1">[HOLO-GRID INTERFACE v.3.0]</p>
+    </footer>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Interactive Canvas Grid & Spotlight ---
+            const canvas = document.getElementById('interactive-grid');
+            const ctx = canvas.getContext('2d');
+            const spotlight = document.getElementById('spotlight');
+            let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+            const setupCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+
+            const drawGrid = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const gridSize = 30;
+                
+                for (let x = 0; x <= canvas.width; x += gridSize) {
+                    for (let y = 0; y <= canvas.height; y += gridSize) {
+                        const dist = Math.sqrt(Math.pow(mouse.x - x, 2) + Math.pow(mouse.y - y, 2));
+                        const opacity = Math.max(0, 1 - dist / 400);
+                        
+                        if (opacity > 0.05) {
+                            ctx.beginPath();
+                            ctx.arc(x, y, 2, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(0, 210, 255, ${opacity * 0.5})`;
+                            ctx.fill();
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('mousemove', e => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                gsap.to(spotlight, { duration: 0.5, x: e.clientX, y: e.clientY });
+            });
+            
+            const animate = () => {
+                drawGrid();
+                requestAnimationFrame(animate);
+            };
+            
+            setupCanvas();
+            animate();
+            window.addEventListener('resize', setupCanvas);
+            
+            // --- Focus Mode on Cards ---
+            const cards = document.querySelectorAll('.holo-card, .contact-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => document.body.classList.add('card-focused'));
+                card.addEventListener('mouseleave', () => document.body.classList.remove('card-focused'));
+            });
+
+            // --- GSAP Animations ---
+            gsap.from("#hero > div > *", { 
+                duration: 1, opacity: 0, y: 30, 
+                ease: "power3.out", stagger: 0.2, delay: 0.5
+            });
+
+            gsap.utils.toArray('section:not(#hero)').forEach((section) => {
+                gsap.from(section, {
+                    scrollTrigger: { trigger: section, start: 'top 80%', toggleActions: 'play none none reverse' },
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: 'power3.out',
+                    clipPath: 'inset(50% 50% 50% 50%)'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
